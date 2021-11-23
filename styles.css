@@ -233,21 +233,23 @@ li {
 
 /* 3local */
 
+.BMI {
+    margin: 0 10 0;
+}
+
 .activityRow {
-    display: flex;
     margin-bottom: 10px;
     align-items: top;
 }
 
 .activityPhoto {
     border: #400106 solid 1px;
-    width: 95%;
-    margin: 10px;
-    height: 120px;
+    width: 100%;
 }
 
 .activityTextBlock {
-    margin: 0px 5px 10px 15px;
+    margin: 0px auto;
+    padding-bottom: 5px;
 }
 
 /* 4story */
@@ -364,5 +366,10 @@ li {
     
     .activityPhoto {
         height: 250px;
+        width: 95%;
+    }
+
+    .activityRow {
+        display: flex;
     }
 } 
