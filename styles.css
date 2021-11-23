@@ -27,7 +27,6 @@ h2 {
     font-family: serif;
     font-variant: small-caps;
     font-size: 28px;
-    margin-left: 5px;
 }
 
 h3 {
@@ -37,7 +36,7 @@ h3 {
 
 .container {
     max-width: 800px;
-    margin: 10px auto 0;
+    margin: 0 auto;
 }
 
 /* navigation  */
@@ -157,6 +156,9 @@ li {
 }
 
 /* 1about */
+.FAQtitle {
+    text-align: left;
+} 
 
 .weddinginfo {
     position: relative;
@@ -173,6 +175,9 @@ li {
     font-variant: all-small-caps;
     font-size: 22px;
     border: solid 1px;
+}
+.FAQ {
+    margin: 0 auto;
 }
 
 .FAQanswer{
@@ -228,10 +233,6 @@ li {
 
 /* 3local */
 
-.activityIntro {
-    padding-left: 10px
-}
-
 .activityRow {
     display: flex;
     margin-bottom: 10px;
@@ -258,6 +259,9 @@ li {
 .story {
     display: none;
 }
+.timeline {
+    margin: 0 10 0;
+}
 
 .timelineEntry {
     display: block;
@@ -276,6 +280,9 @@ li {
 }
 
 /* 5photos */
+.gallery {
+    margin: 0 10 0;
+}
 
 .carousel { 
     width: 100%;
@@ -320,6 +327,7 @@ li {
     background-color: rgba(64,1,6, .9);
     width: 75%;
     margin: 0 auto;
+    padding: 0 20 0;
 }
 /* 6rsvp */
 
