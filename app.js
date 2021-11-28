@@ -29,7 +29,7 @@ window.onload =  function () {
     const dogPhotos = [
         {
             imgSrc : "Photos/Pets_Ellie_Hiking_Maine_2020.jpeg",
-            caption: "Pawe&#322; adopted Ellie in August 2014."
+            caption: "Pawe&#322; adopted Ellie in August 2013."
         },
         {
             imgSrc : "Photos/Pets_Acadia.jpeg",
