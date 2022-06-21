@@ -134,25 +134,29 @@ li {
 .intro {
     font-family: 'dancing script', cursive;
     font-size: 24px;
+    margin: 20px 0px 0px 0px;
 }
 
 .time {
     color: #D9B3B0;
-  
 }
 
 .address {
     color: #D9B3B0;
-    
 }
 
 .RSVPbutton {
-    display: none;
+    /* display: none; */ 
     background-color: #D9B3B0 ;
     color: #400106;
     padding: 8px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4), 0 6px 20px 0 rgba(0,0,0,0.19);
     border: outset #D9B3B0;
+}
+
+.RSVPlink {
+    color: #400106;
+    text-decoration: none;
 }
 
 /* 1about */
