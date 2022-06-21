@@ -91,13 +91,16 @@ window.onload = async function () {
     continueButton.className = 'RSVPButton';
     continueButton.innerText = 'Continue to RSVP';
 
-    continueButton.onclick = function(e) {
+    continueButton.onclick = async function(e) {
       e.preventDefault();
 
-      const selectedGuests = [...document.querySelectorAll('input[type="checkbox"]:checked')].map((node) => {
+      const selectedGuestPromises = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(async (node) => {
         const [firstName, lastName] = node.value.split(' ');
-        return { firstName, lastName };
+        const dbResult = await user.functions.findOneGuest({ firstName, lastName });
+        return dbResult;
       });
+
+      const selectedGuests = await Promise.all(selectedGuestPromises);
 
       while(rsvpResultsNode.firstChild) {
         rsvpResultsNode.removeChild(rsvpResultsNode.firstChild);
@@ -130,14 +133,14 @@ window.onload = async function () {
             brunch: e.target.elements[`${guest.firstName}${guest.lastName}brunch`].value,
           }
 
-          if (!guest.isKid) {
+          if (!guest.isChild) {
             rsvp.meal = e.target.elements[`${guest.firstName}${guest.lastName}meal`].value;
             rsvp.transportationHotel = e.target.elements[`${guest.firstName}${guest.lastName}transportationhotel`].checked;
             rsvp.transportationTrain = e.target.elements[`${guest.firstName}${guest.lastName}transportationtrain`].checked;
             rsvp.transportationMidtown = e.target.elements[`${guest.firstName}${guest.lastName}transportationmidtown`].checked;
           }
 
-          if (!rsvp.meal && !guest.isKid) {
+          if (!rsvp.meal && !guest.isChild) {
             validationErrors.push("Don't forget to select a meal!");
           }
           if (!rsvp.brunch) {
@@ -255,13 +258,13 @@ window.onload = async function () {
           const dietaryRestrictions = generateDietaryRestrictions(`${guest.firstName}${guest.lastName}dietaryRestrictions`);
           const brunch = generateBrunch(`${guest.firstName}${guest.lastName}brunch`);
 
-          if (!guest.isKid) {
+          if (!guest.isChild) {
             const meal = generateMealSelect(`${guest.firstName}${guest.lastName}meal`);
             wrapper.appendChild(meal);
           }
           wrapper.appendChild(dietaryRestrictions);
           wrapper.appendChild(brunch);
-          if (!guest.isKid) {
+          if (!guest.isChild) {
             const transportation = generateTransportation(`${guest.firstName}${guest.lastName}transportation`);
             wrapper.appendChild(transportation);
           }
