@@ -1,5 +1,5 @@
-/* colors: 
-        burgundy #400106, 
+/* colors:
+        burgundy #400106,
         dusty rose #D9B3B0
     fonts:
         montserrat
@@ -9,7 +9,7 @@
 /*entire website */
 [class*="col-"] {
     width: 100%;
-}   
+}
 
 body {
     background-color: white;
@@ -62,7 +62,7 @@ h3 {
 
 .hamburger {
     font-size: 20px;
-} 
+}
 
 .open {
     display: block;
@@ -84,14 +84,14 @@ li {
 }
 
 .names {
-    color: #400106; 
+    color: #400106;
     text-decoration: none;
 }
 
 .border {
     width: 40%;
     align-items: center;
-   
+
 }
 
 .selected {
@@ -109,19 +109,20 @@ li {
 
 .parallax {
     /* display: flex; */
-    /* The image used */ background-image: url("Photos/Engagement_Dancing_Original.jpeg"); 
+    /* The image used */ background-image: url("Photos/Engagement_Dancing_Original.jpeg");
     overflow-x: hidden;
     overflow-y: hidden;
-    /* Set a specific height */ min-height: 90%;  
-    /* Create the parallax scrolling effect */ background-attachment: fixed; 
+    /* Set a specific height */ min-height: 90%;
+    /* Create the parallax scrolling effect */ background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
 }
 
 .basics {
     text-align: center;
-    background-color: #400106; 
+    background-color: #400106;
     opacity: 75%;
     position: fixed;
     bottom: 0px;
@@ -146,7 +147,6 @@ li {
 }
 
 .RSVPbutton {
-    /* display: none; */ 
     background-color: #D9B3B0 ;
     color: #400106;
     padding: 8px;
@@ -162,7 +162,7 @@ li {
 /* 1about */
 .FAQtitle {
     text-align: left;
-} 
+}
 
 .weddinginfo {
     position: relative;
@@ -201,15 +201,15 @@ li {
 ?
 
 .question:after {
-    content: '\02795'; 
+    content: '\02795';
     float: right;
     margin-left: 5px;
     font-size: 14px;
     color: #400106;
   }
-  
+
 .active:after {
-    content: "\2796"; 
+    content: "\2796";
   }
 
 */
@@ -290,7 +290,7 @@ li {
     margin: 0 10 0;
 }
 
-.carousel { 
+.carousel {
     width: 100%;
     justify-items: center;
 }
@@ -305,7 +305,7 @@ li {
 
 .arrow {
     font-size: 28px;
-    color: white; 
+    color: white;
     padding: 8px;
 }
 
@@ -343,23 +343,23 @@ li {
     .col-3 {width: 30%;}
     .col-4 {width: 50%;}
     .col-5 {width: 50%;}
-    
+
     .navbar {
         font-size: 20px;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        
+
     }
-    
+
     .hamburger {
         display: none;
     }
-    
+
     .border {
         width: 20%;
     }
-    
+
     li {
         width: 24%;
     }
@@ -367,7 +367,7 @@ li {
     .parallax {
         background-size: contain;
     }
-    
+
     .activityPhoto {
         height: 250px;
         width: 95%;
@@ -376,4 +376,51 @@ li {
     .activityRow {
         display: flex;
     }
-} 
+}
+
+/* RSVP tab */
+.RSVPErrors {
+    margin-bottom: 20px;
+}
+
+.RSVPErrors div:first-child {
+    font-weight: bold;
+}
+
+.RSVPName {
+    margin-bottom: 30px;
+}
+
+.RSVPNameSection {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.RSVPInput {
+    height: 36px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.RSVPResult {
+    display: flex;
+    align-items: center;
+}
+
+.RSVPResultName {
+    margin-right: 30px;
+}
+
+.RSVPInputSection {
+    padding: 20px 0;
+}
+
+.RSVPLabel {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.guestOption {
+    margin-bottom: 10px;
+}

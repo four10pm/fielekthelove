@@ -2,7 +2,9 @@
 
 <head>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
     <script src='app.js'></script>
+    <script src='rsvp.js'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -39,61 +41,13 @@
             <p> We can't wait to celebrate with you!</p>
         </div>
         <div class="RSVPname">
-            <label for="name"> Your last name:</label>
-            <input type="text" id="name" name="name"> </input>
-            <button> Find my group </button>
+            <label for="name" class="RSVPNameSection RSVPLabel"> Your last name:</label>
+            <input type="text" id="name" name="name" class="RSVPInput RSVPNameSection">
+            <button class="findButton RSVPButton RSVPNameSection"> Find my group </button>
         </div>
-        <div class="RSVPinfo">
-            <form class="RSVPForm">
-                <form class="RSVPentry">
-                    <p> RSVP for {#guest1}: </p>
-                    <input type="radio" id="RSVPyes" name="RSVP"> </input>
-                    <label for="RSVPyes"> We're so excited to be there! </label>
-                    <input type="radio" id="RSVPno" name="RSVP"> </input>
-                    <label for="RSVPno"> We're sorry to miss it. </label>
-                </form>
-                <form class="mealForm">
-                    <p> What meal would you like? </p>
-                    <input type="radio" id="meal1" name="meal" value="chickene">
-                    <label for="meal1"> Chicken </label>
-                    <input type="radio" id="meal2" name="meal" value="salmon">
-                    <label for="meal2"> Salmon </label>
-                    <input type="radio" id="meal1" name="meal" value="vegetarian">
-                    <label for="vegetarian"> Vegetarian </label>
-                </form>
-                <form class="brunchForm">
-                    <p> Will you join us for brunch on Sunday?</p>
-                    <input type="radio" id="yes" name="brunch" value="yes">
-                    <label for="yes"> Yes, we'd love to! </label>
-                    <input type="radio" id="no" name="brunch" value="no">
-                    <label for="no"> No, we're sorry but we have to miss it. </label>
-                </form>
-                <button> Submit RSVP </button>
-            </form>
-        </div>
+        <div class="RSVPErrors"></div>
+        <div class="RSVPResults"></div>
     </div>
 </body>
 
 </html>
-
-
-<!-- 
-        As a wedding guest, 
-            I  want to be able to type in my last name and pull up everyone in my party, 
-                so that  I can RSVP for everyone at once.
-            I want to be able to RSVP for each person in my party individually,
-                so that I can account for different people's schedules.
-            I want to be able to select each guest's meal choice,
-                so that everyone can eat what they like. 
-            I want to RSVP for brunch for each wedding guest, 
-                so that we can all participate in the brunch.
-        As Paulina,
-            I want to know which guests have RSVP'ed,
-                so that I can keep my guest count up-to-date.
-            I  want to know which guests have RSVP'ed with groups or plus ones,
-                so that I can plan seating arrangements.
-            I want to know if guests are interested in transportation,
-                so that I can book accordingly.
-            I  want to know if guests are interested in brunch the next day,
-                so that I can plan accordingly.
-    -->
