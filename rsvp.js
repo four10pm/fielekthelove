@@ -134,7 +134,11 @@ window.onload = async function () {
             isChild: guest.isChild,
           }
 
+<<<<<<< HEAD
           if (!guest.isBaby) {
+=======
+          if (!guest.isChild) {
+>>>>>>> 7257010e83d6d45ed3b462527b153f15ae6a3d17
             rsvp.meal = e.target.elements[`${guest.firstName}${guest.lastName}meal`].value;
           }
 
@@ -144,7 +148,11 @@ window.onload = async function () {
             rsvp.transportationMidtown = e.target.elements[`${guest.firstName}${guest.lastName}transportationmidtown`].checked;
           }
 
+<<<<<<< HEAD
           if (!rsvp.meal && !guest.isBaby) {
+=======
+          if (!rsvp.meal && !guest.isChild) {
+>>>>>>> 7257010e83d6d45ed3b462527b153f15ae6a3d17
             validationErrors.push("Don't forget to select a meal!");
           }
           if (!rsvp.brunch) {
@@ -263,13 +271,22 @@ window.onload = async function () {
           const dietaryRestrictions = generateDietaryRestrictions(`${guest.firstName}${guest.lastName}dietaryRestrictions`);
           const brunch = generateBrunch(`${guest.firstName}${guest.lastName}brunch`);
 
+<<<<<<< HEAD
           if (!guest.isBaby) {
             const meal = generateMealSelect(`${guest.firstName}${guest.lastName}meal`, guest.isToddler);
+=======
+          if (!guest.isChild) {
+            const meal = generateMealSelect(`${guest.firstName}${guest.lastName}meal`);
+>>>>>>> 7257010e83d6d45ed3b462527b153f15ae6a3d17
             wrapper.appendChild(meal);
           }
           wrapper.appendChild(dietaryRestrictions);
           wrapper.appendChild(brunch);
+<<<<<<< HEAD
           if (!guest.isChild && !guest.isToddler && !guest.isBaby) {
+=======
+          if (!guest.isChild) {
+>>>>>>> 7257010e83d6d45ed3b462527b153f15ae6a3d17
             const transportation = generateTransportation(`${guest.firstName}${guest.lastName}transportation`);
             wrapper.appendChild(transportation);
           }

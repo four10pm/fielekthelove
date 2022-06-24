@@ -135,16 +135,15 @@ li {
 .intro {
     font-family: 'dancing script', cursive;
     font-size: 24px;
+    margin: 20px 0px 0px 0px;
 }
 
 .time {
     color: #D9B3B0;
-
 }
 
 .address {
     color: #D9B3B0;
-
 }
 
 .RSVPbutton {
@@ -155,50 +154,9 @@ li {
     border: outset #D9B3B0;
 }
 
-.RSVPErrors {
-    margin-bottom: 20px;
-}
-
-.RSVPErrors div:first-child {
-    font-weight: bold;
-}
-
-.RSVPName {
-    margin-bottom: 30px;
-}
-
-.RSVPNameSection {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.RSVPInput {
-    height: 36px;
-    width: 200px;
-    margin-right: 10px;
-}
-
-.RSVPResult {
-    display: flex;
-    align-items: center;
-}
-
-.RSVPResultName {
-    margin-right: 30px;
-}
-
-.RSVPInputSection {
-    padding: 20px 0;
-}
-
-.RSVPLabel {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.guestOption {
-    margin-bottom: 10px;
+.RSVPlink {
+    color: #400106;
+    text-decoration: none;
 }
 
 /* 1about */
@@ -418,4 +376,51 @@ li {
     .activityRow {
         display: flex;
     }
+}
+
+/* RSVP tab */
+.RSVPErrors {
+    margin-bottom: 20px;
+}
+
+.RSVPErrors div:first-child {
+    font-weight: bold;
+}
+
+.RSVPName {
+    margin-bottom: 30px;
+}
+
+.RSVPNameSection {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.RSVPInput {
+    height: 36px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.RSVPResult {
+    display: flex;
+    align-items: center;
+}
+
+.RSVPResultName {
+    margin-right: 30px;
+}
+
+.RSVPInputSection {
+    padding: 20px 0;
+}
+
+.RSVPLabel {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.guestOption {
+    margin-bottom: 10px;
 }
