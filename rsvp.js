@@ -91,13 +91,16 @@ window.onload = async function () {
     continueButton.className = 'RSVPButton';
     continueButton.innerText = 'Continue to RSVP';
 
-    continueButton.onclick = function(e) {
+    continueButton.onclick = async function(e) {
       e.preventDefault();
 
-      const selectedGuests = [...document.querySelectorAll('input[type="checkbox"]:checked')].map((node) => {
+      const selectedGuestPromises = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(async (node) => {
         const [firstName, lastName] = node.value.split(' ');
-        return { firstName, lastName };
+        const dbResult = await user.functions.findOneGuest({ firstName, lastName });
+        return dbResult;
       });
+
+      const selectedGuests = await Promise.all(selectedGuestPromises);
 
       while(rsvpResultsNode.firstChild) {
         rsvpResultsNode.removeChild(rsvpResultsNode.firstChild);
@@ -128,16 +131,20 @@ window.onload = async function () {
             rsvp: true,
             dietaryRestrictions: e.target.elements[`${guest.firstName}${guest.lastName}dietaryRestrictions`].value,
             brunch: e.target.elements[`${guest.firstName}${guest.lastName}brunch`].value,
+            isChild: guest.isChild,
           }
 
-          if (!guest.isKid) {
+          if (!guest.isBaby) {
             rsvp.meal = e.target.elements[`${guest.firstName}${guest.lastName}meal`].value;
+          }
+
+          if (!guest.isBaby && !guest.isToddler && !guest.isChild) {
             rsvp.transportationHotel = e.target.elements[`${guest.firstName}${guest.lastName}transportationhotel`].checked;
             rsvp.transportationTrain = e.target.elements[`${guest.firstName}${guest.lastName}transportationtrain`].checked;
             rsvp.transportationMidtown = e.target.elements[`${guest.firstName}${guest.lastName}transportationmidtown`].checked;
           }
 
-          if (!rsvp.meal && !guest.isKid) {
+          if (!rsvp.meal && !guest.isBaby) {
             validationErrors.push("Don't forget to select a meal!");
           }
           if (!rsvp.brunch) {
@@ -170,6 +177,7 @@ window.onload = async function () {
             transportationHotel: e.target.elements[`${guest.firstName}${guest.lastName}plusOneTransportationhotel`].checked,
             transportationTrain: e.target.elements[`${guest.firstName}${guest.lastName}plusOneTransportationtrain`].checked,
             transportationMidtown: e.target.elements[`${guest.firstName}${guest.lastName}plusOneTransportationmidtown`].checked,
+            isChild: false,
           }
 
           if (!rsvp.meal) {
@@ -255,13 +263,13 @@ window.onload = async function () {
           const dietaryRestrictions = generateDietaryRestrictions(`${guest.firstName}${guest.lastName}dietaryRestrictions`);
           const brunch = generateBrunch(`${guest.firstName}${guest.lastName}brunch`);
 
-          if (!guest.isKid) {
-            const meal = generateMealSelect(`${guest.firstName}${guest.lastName}meal`);
+          if (!guest.isBaby) {
+            const meal = generateMealSelect(`${guest.firstName}${guest.lastName}meal`, guest.isToddler);
             wrapper.appendChild(meal);
           }
           wrapper.appendChild(dietaryRestrictions);
           wrapper.appendChild(brunch);
-          if (!guest.isKid) {
+          if (!guest.isChild && !guest.isToddler && !guest.isBaby) {
             const transportation = generateTransportation(`${guest.firstName}${guest.lastName}transportation`);
             wrapper.appendChild(transportation);
           }
@@ -388,71 +396,102 @@ window.onload = async function () {
   }
 
   // generator functions
-  function generateMealSelect(key) {
+  function generateMealSelect(key, isToddler) {
     const wrapper = document.createElement('div');
     wrapper.className = 'RSVPInputSection';
     const label = document.createElement('label');
     label.innerText = 'Please choose a meal';
     label.className = 'RSVPLabel';
 
-    const beefWrapper = document.createElement('div');
-    beefWrapper.className = 'RSVPOptionGroup';
-    const beef = document.createElement('input');
-    beef.type = 'radio';
-    beef.name = key;
-    beef.id = `${key}beef`;
-    beef.value = 'beef';
-    const beefLabel = document.createElement('label');
-    beefLabel.innerText = 'Duo of Beef';
-    beefLabel.setAttribute('for', `${key}beef`);
-    beefWrapper.appendChild(beef);
-    beefWrapper.appendChild(beefLabel);
-
-    const halibutWrapper = document.createElement('div');
-    halibutWrapper.className = 'RSVPOptionGroup';
-    const halibut = document.createElement('input');
-    halibut.type = 'radio';
-    halibut.name = key;
-    halibut.id = `${key}halibut`;
-    halibut.value = 'halibut';
-    const halibutLabel = document.createElement('label');
-    halibutLabel.innerText = 'Herb-Crusted Halibut';
-    halibutLabel.setAttribute('for', `${key}halibut`);
-    halibutWrapper.appendChild(halibut);
-    halibutWrapper.appendChild(halibutLabel);
-
-    const lasagnaWrapper = document.createElement('div');
-    lasagnaWrapper.className = 'RSVPOptionGroup';
-    const lasagna = document.createElement('input');
-    lasagna.type = 'radio';
-    lasagna.name = key;
-    lasagna.id = `${key}lasagna`;
-    lasagna.value = 'lasagna';
-    const lasagnaLabel = document.createElement('label');
-    lasagnaLabel.innerText = 'Roasted Vegetable Lasagna (vegetarian)';
-    lasagnaLabel.setAttribute('for', `${key}lasagna`);
-    lasagnaWrapper.appendChild(lasagna);
-    lasagnaWrapper.appendChild(lasagnaLabel);
-
-    const quinoaWrapper = document.createElement('div');
-    quinoaWrapper.className = 'RSVPOptionGroup';
-    const quinoa = document.createElement('input');
-    quinoa.type = 'radio';
-    quinoa.name = key;
-    quinoa.id = `${key}quinoa`;
-    quinoa.value = 'quinoa';
-    const quinoaLabel = document.createElement('label');
-    quinoaLabel.innerText = 'Red Quinoa and Roasted Seasonal Vegetables (vegan)';
-    quinoaLabel.setAttribute('for', `${key}quinoa`);
-    quinoaWrapper.appendChild(quinoa);
-    quinoaWrapper.appendChild(quinoaLabel);
-
     wrapper.appendChild(label);
 
-    wrapper.appendChild(beefWrapper);
-    wrapper.appendChild(halibutWrapper);
-    wrapper.appendChild(lasagnaWrapper);
-    wrapper.appendChild(quinoaWrapper);
+    if (isToddler) {
+      const chickenWrapper = document.createElement('div');
+      chickenWrapper.className = 'RSVPOptionGroup';
+      const chicken = document.createElement('input');
+      chicken.type = 'radio';
+      chicken.name = key;
+      chicken.id = `${key}chicken`;
+      chicken.value = 'chicken';
+      const chickenLabel = document.createElement('label');
+      chickenLabel.innerText = 'Chicken Fingers';
+      chickenLabel.setAttribute('for', `${key}chicken`);
+      chickenWrapper.appendChild(chicken);
+      chickenWrapper.appendChild(chickenLabel);
+
+      const macWrapper = document.createElement('div');
+      macWrapper.className = 'RSVPOptionGroup';
+      const mac = document.createElement('input');
+      mac.type = 'radio';
+      mac.name = key;
+      mac.id = `${key}mac`;
+      mac.value = 'mac';
+      const macLabel = document.createElement('label');
+      macLabel.innerText = 'Mac and Cheese';
+      macLabel.setAttribute('for', `${key}mac`);
+      macWrapper.appendChild(mac);
+      macWrapper.appendChild(macLabel);
+
+      wrapper.appendChild(chickenWrapper);
+      wrapper.appendChild(macWrapper);
+    } else {
+      const beefWrapper = document.createElement('div');
+      beefWrapper.className = 'RSVPOptionGroup';
+      const beef = document.createElement('input');
+      beef.type = 'radio';
+      beef.name = key;
+      beef.id = `${key}beef`;
+      beef.value = 'beef';
+      const beefLabel = document.createElement('label');
+      beefLabel.innerText = 'Duo of Beef';
+      beefLabel.setAttribute('for', `${key}beef`);
+      beefWrapper.appendChild(beef);
+      beefWrapper.appendChild(beefLabel);
+
+      const halibutWrapper = document.createElement('div');
+      halibutWrapper.className = 'RSVPOptionGroup';
+      const halibut = document.createElement('input');
+      halibut.type = 'radio';
+      halibut.name = key;
+      halibut.id = `${key}halibut`;
+      halibut.value = 'halibut';
+      const halibutLabel = document.createElement('label');
+      halibutLabel.innerText = 'Herb-Crusted Halibut';
+      halibutLabel.setAttribute('for', `${key}halibut`);
+      halibutWrapper.appendChild(halibut);
+      halibutWrapper.appendChild(halibutLabel);
+
+      const lasagnaWrapper = document.createElement('div');
+      lasagnaWrapper.className = 'RSVPOptionGroup';
+      const lasagna = document.createElement('input');
+      lasagna.type = 'radio';
+      lasagna.name = key;
+      lasagna.id = `${key}lasagna`;
+      lasagna.value = 'lasagna';
+      const lasagnaLabel = document.createElement('label');
+      lasagnaLabel.innerText = 'Roasted Vegetable Lasagna (vegetarian)';
+      lasagnaLabel.setAttribute('for', `${key}lasagna`);
+      lasagnaWrapper.appendChild(lasagna);
+      lasagnaWrapper.appendChild(lasagnaLabel);
+
+      const quinoaWrapper = document.createElement('div');
+      quinoaWrapper.className = 'RSVPOptionGroup';
+      const quinoa = document.createElement('input');
+      quinoa.type = 'radio';
+      quinoa.name = key;
+      quinoa.id = `${key}quinoa`;
+      quinoa.value = 'quinoa';
+      const quinoaLabel = document.createElement('label');
+      quinoaLabel.innerText = 'Red Quinoa and Roasted Seasonal Vegetables (vegan)';
+      quinoaLabel.setAttribute('for', `${key}quinoa`);
+      quinoaWrapper.appendChild(quinoa);
+      quinoaWrapper.appendChild(quinoaLabel);
+
+      wrapper.appendChild(beefWrapper);
+      wrapper.appendChild(halibutWrapper);
+      wrapper.appendChild(lasagnaWrapper);
+      wrapper.appendChild(quinoaWrapper);
+    }
 
     return wrapper;
   }
