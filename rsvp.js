@@ -162,7 +162,7 @@ window.onload = async function () {
           })
         }
 
-        if (guest.hasPlusOne && e.target.elements[`${guest.firstName}${guest.lastName}plusOne`].value === 'true') {
+        if (guest.hasPlusOne && rsvpStatus === 'true' && e.target.elements[`${guest.firstName}${guest.lastName}plusOne`].value === 'true') {
           const [firstName, lastName] = e.target.elements[`${guest.firstName}${guest.lastName}plusOneName`].value.split(' ');
           if (!firstName) {
             validationErrors.push("Don't forget to tell us your +1's name!");
